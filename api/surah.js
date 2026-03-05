@@ -31,7 +31,8 @@ export default function handler(req, res) {
       return res.status(404).json({ success: false, message: "فهرس السور غير موجود" });
     }
 
-    const surahPath = path.join(process.cwd(), 'data', 'surahs', `surah${id}.json`);
+    // التعديل هنا ليتناسب مع التسمية الجديدة surah_1.json
+    const surahPath = path.join(process.cwd(), 'data', 'surahs', `surah_${id}.json`);
     
     if (fs.existsSync(surahPath)) {
       const surahContents = fs.readFileSync(surahPath, 'utf8');
@@ -43,14 +44,14 @@ export default function handler(req, res) {
     } else {
       return res.status(404).json({
         success: false,
-        message: `الملف surah${id}.json غير موجود في المجلد`
+        message: `الملف surah_${id}.json غير موجود في المجلد`
       });
     }
 
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "خطأ داخلي في الخادم",
+      message: "حدث خطأ في السيرفر",
       error: error.message
     });
   }
