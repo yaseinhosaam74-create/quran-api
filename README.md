@@ -1,65 +1,103 @@
-​📖 المرجع الكامل لواجهة برمجيات القرآن الكريم (Quran API)
-​هذا الملف يحتوي على شرح تفصيلي وممل لكل رابط في الـ API الخاص بك المستضاف على Vercel، مع روابط مباشرة وتطبيقات برمجية.
-​🔗 المعلومات الأساسية
-​رابط السيرفر: https://quran-api-teal-eight.vercel.app
-​نقطة الوصول (Endpoint): /api/surah
-​🛠️ الفهارس العامة (Global Indexes)
-​تستخدم هذه الروابط لبناء القوائم الرئيسية ومفاتيح الاختيار في موقعك.
-​1. قائمة السور الكاملة (surah.json)
-​يحتوي على اسم السورة (عربي/إنجليزي)، عدد الآيات، مكان النزول، ورقم الجزء.
-​الرابط المباشر: https://quran-api-teal-eight.vercel.app/api/surah?type=list
-​الاستخدام: لجلب قائمة الـ 114 سورة وعرضها في القائمة الجانبية.
-​2. فهرس الأجزاء الثلاثين (juz.json)
-​يحدد بداية ونهاية كل جزء من أجزاء القرآن.
-​الرابط المباشر: https://quran-api-teal-eight.vercel.app/api/surah?type=juz
-​الاستخدام: لتقسيم التصفح بناءً على الأجزاء (مثلاً: الجزء الأول، الجزء الثاني).
-​📄 محتوى السور والآيات (Surah Content)
-​يتم جلب المحتوى بتغيير متغير id (رقم السورة من 1 إلى 114).
-​1. نص الآيات العادي (Simple Script)
-​الوصف: جلب نص الآيات الصافي.
-​الرابط (سورة رقم 6): https://quran-api-teal-eight.vercel.app/api/surah?id=6
-​2. نص الآيات بالتجويد (Tajweed Script)
-​الوصف: جلب النص مع رموز وقواعد التجويد الملونة.
-​الرابط (سورة رقم 6): https://quran-api-teal-eight.vercel.app/api/surah?id=6&type=tajweed
-​🔊 نظام الصوتيات (Audio Files)
-​يتعامل هذا الرابط مع المجلدات الثلاثية (مثل 006) ويقرأ ملف index.json الخاص بكل سورة.
-​بيانات روابط الصوت
-​الوصف: يعيد روابط ملفات الـ mp3 الخاصة بالسورة، بما في ذلك ملف الاستعاذة والبسملة 000.mp3.
-​الرابط (سورة رقم 6): https://quran-api-teal-eight.vercel.app/api/surah?id=6&type=audio
-​🌍 التراجم واللغات (Translations)
-​يمكنك اختيار اللغة عبر متغير lang.
-اللغة الرابط المباشر (لسورة الأنعام رقم 6)
-العربية رابط الترجمة العربية
-الإنجليزية رابط الترجمة الإنجليزية
-الإندونيسية رابط الترجمة الإندونيسية
-💻 دليل الدمج البرمجي (Integration Guide)
-​إليك كيف تضع هذه الروابط في كود موقعك لجلب المحتوى:
-​1. جلب بيانات السورة (JavaScript Fetch)
-// دالة لجلب البيانات
-async function fetchSurah(surahNumber) {
-    const url = `https://quran-api-teal-eight.vercel.app/api/surah?id=${surahNumber}`;
-    try {
-        const response = await fetch(url);
-        const result = await response.json();
-        console.log("آيات السورة:", result.data);
-    } catch (error) {
-        console.error("فشل الجلب:", error);
-    }
+# 🕋 Quran API Documentation (v1.0.0)
+
+مرحباً بك في الوثائق الرسمية والمفصلة لواجهة برمجة تطبيقات القرآن الكريم الخاصة بك. تم تصميم هذا الـ API ليكون **فائق السرعة** وسهل الدمج في أي موقع إلكتروني أو تطبيق موبايل.
+
+---
+
+## 🚀 الرابط الأساسي للمشروع (Production URL)
+**Base URL:** `https://quran-api-teal-eight.vercel.app/api/surah`
+
+---
+
+## 📂 أولاً: الفهارس والقوائم العامة (Global Endpoints)
+تستخدم هذه الروابط لجلب البيانات الهيكلية للمصحف لبناء القوائم الجانبية أو شاشات الاختيار.
+
+### 1. قائمة السور الشاملة (Surah List)
+يجلب هذا الرابط كافة المعلومات الأساسية عن الـ 114 سورة (الاسم بالعربي والإنجليزي، مكان النزول، عدد الآيات، رقم الصفحة).
+- **الرابط:** `?type=list`
+- **رابط مباشر:** [اضغط هنا للعرض](https://quran-api-teal-eight.vercel.app/api/surah?type=list)
+
+### 2. فهرس الأجزاء (Juz Index)
+يجلب تقسيم القرآن إلى 30 جزءاً، مع تحديد بداية ونهاية كل جزء (رقم السورة ورقم الآية).
+- **الرابط:** `?type=juz`
+- **رابط مباشر:** [اضغط هنا للعرض](https://quran-api-teal-eight.vercel.app/api/surah?type=juz)
+
+### 3. فهرس السور البديل (Secondary Index)
+نسخة إضافية من البيانات لدعم التوافق مع تطبيقات مختلفة.
+- **الرابط:** `?type=surahs_index`
+- **رابط مباشر:** [اضغط هنا للعرض](https://quran-api-teal-eight.vercel.app/api/surah?type=surahs_index)
+
+---
+
+## 📖 ثانياً: محتوى السور (Surah Specific Content)
+لجلب بيانات سورة معينة، يجب استخدام المعرف `id` (رقم السورة من 1 إلى 114).
+
+### 1. النص القرآني العادي (Simple Text)
+يجلب نص الآيات الخام المناسب للقراءة العادية.
+- **الصيغة:** `?id={رقم_السورة}`
+- **مثال (سورة الأنعام - 6):** [عرض السورة](https://quran-api-teal-eight.vercel.app/api/surah?id=6)
+
+### 2. نص التجويد الملون (Tajweed Script)
+يجلب النص مع رموز وقواعد التجويد (مثل الإدغام، الإخفاء، القلقلة) ليتم تلوينها في التطبيق.
+- **الصيغة:** `?id={رقم_السورة}&type=tajweed`
+- **مثال (سورة الكهف - 18):** [عرض التجويد](https://quran-api-teal-eight.vercel.app/api/surah?id=18&type=tajweed)
+
+---
+
+## 🔊 ثالثاً: نظام الصوتيات (Audio Engine)
+يدعم النظام الوصول إلى المجلدات الصوتية الثلاثية (001, 002...) ويجلب ملفات الـ mp3 المسجلة في كل سورة.
+
+### جلب روابط الصوت
+يعيد هذا الرابط قائمة بكافة الآيات وروابطها الصوتية، بما في ذلك ملف الاستعاذة والبسملة **`000.mp3`**.
+- **الصيغة:** `?id={رقم_السورة}&type=audio`
+- **مثال (سورة يس - 36):** [عرض روابط الصوت](https://quran-api-teal-eight.vercel.app/api/surah?id=36&type=audio)
+
+---
+
+## 🌍 رابعاً: التراجم واللغات (Multi-Language Support)
+يمكنك طلب ترجمة أي سورة بأي لغة مدعومة في قاعدة بياناتك.
+
+| اللغة | كود اللغة (`lang`) | مثال رابط سورة الفاتحة (1) |
+| :--- | :--- | :--- |
+| **العربية** | `ar` | [رابط مباشر](https://quran-api-teal-eight.vercel.app/api/surah?id=1&type=translation&lang=ar) |
+| **الإنجليزية** | `en` | [رابط مباشر](https://quran-api-teal-eight.vercel.app/api/surah?id=1&type=translation&lang=en) |
+| **الإندونيسية** | `id` | [رابط مباشر](https://quran-api-teal-eight.vercel.app/api/surah?id=1&type=translation&lang=id) |
+
+---
+
+## 🛠️ خامساً: كيفية استخدام الـ API في موقعك (Developer Guide)
+
+إليك أفضل طريقة برمجية لجلب البيانات وعرضها باستخدام JavaScript.
+
+### 1. جلب ترجمة سورة محددة (مثال سورة 74 - English)
+```javascript
+const getTranslation = async () => {
+  const surahId = 74;
+  const lang = 'en';
+  const url = `https://quran-api-teal-eight.vercel.app/api/surah?id=${surahId}&type=translation&lang=${lang}`;
+
+  try {
+    const response = await fetch(url);
+    const result = await response.json();
+    console.log("الترجمة الإنجليزية:", result.data);
+  } catch (err) {
+    console.error("خطأ في جلب البيانات:", err);
+  }
+};
+
+2. تشغيل ملف الصوت (000.mp3)
+async function playIntro(id) {
+  const response = await fetch(`https://quran-api-teal-eight.vercel.app/api/surah?id=${id}&type=audio`);
+  const audioData = await response.json();
+  
+  // ملف 000.mp3 يكون عادةً أول عنصر في المصفوفة
+  const introUrl = audioData.data.verses[0].audio_url; 
+  const audio = new Audio(introUrl);
+  audio.play();
 }
 
-// مثال للاستخدام لسورة رقم 6
-fetchSurah(6);
-2.جلب الصوت وتشغيله
-async function playAudio(surahId) {
-    const audioDataRes = await fetch(`https://quran-api-teal-eight.vercel.app/api/surah?id=${surahId}&type=audio`);
-    const audioData = await audioDataRes.json();
-    
-    // تشغيل ملف الاستعاذة (000.mp3)
-    const introPath = audioData.data.verses[0].audio_url; 
-    const player = new Audio(introPath);
-    player.play();
-}
-⚡ ملاحظات الأداء (Speed Optimization)
-​CORS Enabled: يمكنك طلب هذه الروابط من أي موقع (Localhost أو Domain) دون مشاكل.
-​Serverless Speed: الكود مبرمج ليعالج الملفات من الذاكرة مباشرة لضمان أقل وقت استجابة.
-​Error Handling: في حال طلب رقم سورة غير صحيح (أكبر من 114)، سيعيد الـ API رسالة خطأ واضحة (404).
+⚡ ملاحظات تقنية هامة
+​CORS: الـ API يدعم الوصول من جميع النطاقات، مما يجعله مثالياً لتطبيقات الويب والموبايل.
+​الاستجابة: يتم إرسال البيانات بصيغة JSON منظمة لسهولة المعالجة.
+​أرقام المعرفات: تأكد أن الـ id دائماً بين 1 و 114.
+​تم إنشاء هذا التوثيق لضمان تشغيل مشروعك "بسرعة الصاروخ".
