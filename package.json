@@ -2,7 +2,6 @@
   "name": "quran-api",
   "version": "1.0.0",
   "type": "module",
-  "dependencies": {
-    "path": "^0.12.7"
-  }
+  "description": "Quran API for Tamanina App",
+  "dependencies": {}
 }
