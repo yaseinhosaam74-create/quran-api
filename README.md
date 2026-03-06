@@ -1,103 +1,121 @@
-# 🕋 Quran API Documentation (v1.0.0)
+# ⚡ التوثيق الشامل لواجهة برمجة تطبيقات القرآن الكريم (Quran API)
 
-مرحباً بك في الوثائق الرسمية والمفصلة لواجهة برمجة تطبيقات القرآن الكريم الخاصة بك. تم تصميم هذا الـ API ليكون **فائق السرعة** وسهل الدمج في أي موقع إلكتروني أو تطبيق موبايل.
-
----
-
-## 🚀 الرابط الأساسي للمشروع (Production URL)
-**Base URL:** `https://quran-api-teal-eight.vercel.app/api/surah`
+هذا التوثيق مخصص للمطورين لشرح كيفية استهلاك واجهة برمجة التطبيقات (API) الخاصة بالقرآن الكريم، والتي توفر النص القرآني، التجويد الملون، الصوتيات، والتفسير بسرعة فائقة.
 
 ---
 
-## 📂 أولاً: الفهارس والقوائم العامة (Global Endpoints)
-تستخدم هذه الروابط لجلب البيانات الهيكلية للمصحف لبناء القوائم الجانبية أو شاشات الاختيار.
-
-### 1. قائمة السور الشاملة (Surah List)
-يجلب هذا الرابط كافة المعلومات الأساسية عن الـ 114 سورة (الاسم بالعربي والإنجليزي، مكان النزول، عدد الآيات، رقم الصفحة).
-- **الرابط:** `?type=list`
-- **رابط مباشر:** [اضغط هنا للعرض](https://quran-api-teal-eight.vercel.app/api/surah?type=list)
-
-### 2. فهرس الأجزاء (Juz Index)
-يجلب تقسيم القرآن إلى 30 جزءاً، مع تحديد بداية ونهاية كل جزء (رقم السورة ورقم الآية).
-- **الرابط:** `?type=juz`
-- **رابط مباشر:** [اضغط هنا للعرض](https://quran-api-teal-eight.vercel.app/api/surah?type=juz)
-
-### 3. فهرس السور البديل (Secondary Index)
-نسخة إضافية من البيانات لدعم التوافق مع تطبيقات مختلفة.
-- **الرابط:** `?type=surahs_index`
-- **رابط مباشر:** [اضغط هنا للعرض](https://quran-api-teal-eight.vercel.app/api/surah?type=surahs_index)
+## 🔗 الرابط الأساسي (Base URL)
+جميع الطلبات يجب أن توجه إلى الرابط التالي كقاعدة أساسية:
+`https://quran-api-henna-iota.vercel.app/api/surah`
 
 ---
 
-## 📖 ثانياً: محتوى السور (Surah Specific Content)
-لجلب بيانات سورة معينة، يجب استخدام المعرف `id` (رقم السورة من 1 إلى 114).
+## 🛠️ كيفية الاستخدام (Endpoints & Parameters)
 
-### 1. النص القرآني العادي (Simple Text)
-يجلب نص الآيات الخام المناسب للقراءة العادية.
-- **الصيغة:** `?id={رقم_السورة}`
-- **مثال (سورة الأنعام - 6):** [عرض السورة](https://quran-api-teal-eight.vercel.app/api/surah?id=6)
+الـ API يعمل بنظام إرسال المتغيرات (Query Parameters) في الرابط لتحديد نوع البيانات المطلوبة:
 
-### 2. نص التجويد الملون (Tajweed Script)
-يجلب النص مع رموز وقواعد التجويد (مثل الإدغام، الإخفاء، القلقلة) ليتم تلوينها في التطبيق.
-- **الصيغة:** `?id={رقم_السورة}&type=tajweed`
-- **مثال (سورة الكهف - 18):** [عرض التجويد](https://quran-api-teal-eight.vercel.app/api/surah?id=18&type=tajweed)
+* **`?type=list`** : يجلب فهرس القرآن بالكامل (114 سورة).
+* **`?id={1-114}`** : يجلب النص القرآني العادي للسورة المطلوبة.
+* **`?id={1-114}&type=tajweed`** : يجلب النص القرآني متضمناً أكواد التلوين لأحكام التجويد.
+* **`?id={1-114}&type=audio`** : يجلب روابط ملفات (MP3) لكل آية في السورة.
+* **`?id={1-114}&type=translation&lang=ar`** : يجلب التفسير/الترجمة العربية لآيات السورة.
 
 ---
 
-## 🔊 ثالثاً: نظام الصوتيات (Audio Engine)
-يدعم النظام الوصول إلى المجلدات الصوتية الثلاثية (001, 002...) ويجلب ملفات الـ mp3 المسجلة في كل سورة.
+## 💻 دليل التكامل البرمجي (Integration Guide)
 
-### جلب روابط الصوت
-يعيد هذا الرابط قائمة بكافة الآيات وروابطها الصوتية، بما في ذلك ملف الاستعاذة والبسملة **`000.mp3`**.
-- **الصيغة:** `?id={رقم_السورة}&type=audio`
-- **مثال (سورة يس - 36):** [عرض روابط الصوت](https://quran-api-teal-eight.vercel.app/api/surah?id=36&type=audio)
+لجلب هذه البيانات وعرضها بشكل حقيقي 100% داخل أي موقع، استخدم أكواد الجافا سكريبت التالية نصاً.
 
----
-
-## 🌍 رابعاً: التراجم واللغات (Multi-Language Support)
-يمكنك طلب ترجمة أي سورة بأي لغة مدعومة في قاعدة بياناتك.
-
-| اللغة | كود اللغة (`lang`) | مثال رابط سورة الفاتحة (1) |
-| :--- | :--- | :--- |
-| **العربية** | `ar` | [رابط مباشر](https://quran-api-teal-eight.vercel.app/api/surah?id=1&type=translation&lang=ar) |
-| **الإنجليزية** | `en` | [رابط مباشر](https://quran-api-teal-eight.vercel.app/api/surah?id=1&type=translation&lang=en) |
-| **الإندونيسية** | `id` | [رابط مباشر](https://quran-api-teal-eight.vercel.app/api/surah?id=1&type=translation&lang=id) |
-
----
-
-## 🛠️ خامساً: كيفية استخدام الـ API في موقعك (Developer Guide)
-
-إليك أفضل طريقة برمجية لجلب البيانات وعرضها باستخدام JavaScript.
-
-### 1. جلب ترجمة سورة محددة (مثال سورة 74 - English)
+### 1. دالة الجلب الموحدة
 ```javascript
-const getTranslation = async () => {
-  const surahId = 74;
-  const lang = 'en';
-  const url = `https://quran-api-teal-eight.vercel.app/api/surah?id=${surahId}&type=translation&lang=${lang}`;
-
-  try {
+async function fetchApiData(params) {
+    const query = new URLSearchParams(params).toString();
+    const url = `https://quran-api-henna-iota.vercel.app/api/surah?${query}`;
     const response = await fetch(url);
     const result = await response.json();
-    console.log("الترجمة الإنجليزية:", result.data);
-  } catch (err) {
-    console.error("خطأ في جلب البيانات:", err);
-  }
-};
-
-2. تشغيل ملف الصوت (000.mp3)
-async function playIntro(id) {
-  const response = await fetch(`https://quran-api-teal-eight.vercel.app/api/surah?id=${id}&type=audio`);
-  const audioData = await response.json();
-  
-  // ملف 000.mp3 يكون عادةً أول عنصر في المصفوفة
-  const introUrl = audioData.data.verses[0].audio_url; 
-  const audio = new Audio(introUrl);
-  audio.play();
+    return result.success ? result.data : null;
 }
 
-⚡ ملاحظات تقنية هامة
-​CORS: الـ API يدعم الوصول من جميع النطاقات، مما يجعله مثالياً لتطبيقات الويب والموبايل.
-​الاستجابة: يتم إرسال البيانات بصيغة JSON منظمة لسهولة المعالجة.
-​أرقام المعرفات: تأكد أن الـ id دائماً بين 1 و 114.
-​تم إنشاء هذا التوثيق لضمان تشغيل مشروعك "بسرعة الصاروخ".
+2. دالة جلب وعرض قائمة السور بالكامل
+async function renderSurahsList() {
+    const listContainer = document.getElementById('surah-list');
+    const surahs = await fetchApiData({ type: 'list' });
+    
+    listContainer.innerHTML = '';
+    surahs.forEach(surah => {
+        const item = document.createElement('div');
+        item.className = 'surah-item';
+        item.innerText = `${surah.id} - ${surah.name} (${surah.verses_count} آية)`;
+        item.onclick = () => renderFullSurah(surah.id);
+        listContainer.appendChild(item);
+    });
+}
+
+3. دالة جلب وعرض السوره (نص و تجويد و صوت)
+async function renderFullSurah(surahId) {
+    const contentContainer = document.getElementById('surah-content');
+    contentContainer.innerHTML = 'جاري التحميل...';
+
+    const [textData, tajweedData, audioData] = await Promise.all([
+        fetchApiData({ id: surahId }),
+        fetchApiData({ id: surahId, type: 'tajweed' }),
+        fetchApiData({ id: surahId, type: 'audio' })
+    ]);
+
+    contentContainer.innerHTML = '';
+    
+    textData.verses.forEach((verse, index) => {
+        const verseEl = document.createElement('span');
+        verseEl.className = 'verse-text';
+        verseEl.innerHTML = `${verse.text} <span class="verse-num">(${verse.id})</span> `;
+        
+        verseEl.onclick = () => {
+            const player = new Audio(audioData.audio[index].url);
+            player.play();
+        };
+
+        contentContainer.appendChild(verseEl);
+    });
+}
+
+
+​📑 دليل روابط واجهة برمجة التطبيقات (Quran API Directory)
+​هذا القسم يلخص المسارات الكاملة لـ 114 سورة من خلال تحديد نقطة البداية و نقطة النهاية لكل نوع من البيانات، مما يسهل عملية البرمجة والجلب التلقائي.
+​1. فرع النصوص العادية (Plain Text API)
+​يستخدم لجلب نص الآيات الصافي بدون تشكيل تجويد ملون.
+​بداية الفهرس (سورة الفاتحة): https://quran-api-henna-iota.vercel.app/api/surah?id=1
+​نهاية الفهرس (سورة الناس): https://quran-api-henna-iota.vercel.app/api/surah?id=114
+​2. فرع نصوص التجويد (Tajweed Text API)
+​يستخدم لجلب النص مع وسوم HTML لتلوين أحكام التجويد (مد، إخفاء، إدغام... إلخ).
+​بداية الفهرس (سورة الفاتحة): https://quran-api-henna-iota.vercel.app/api/surah?id=1&type=tajweed
+​نهاية الفهرس (سورة الناس): https://quran-api-henna-iota.vercel.app/api/surah?id=114&type=tajweed
+​3. فرع الملفات الصوتية (Audio MP3 API)
+​يستخدم لجلب روابط ملفات MP3 لكل آية على حدة بصوت القارئ.
+​بداية الفهرس (سورة الفاتحة): https://quran-api-henna-iota.vercel.app/api/surah?id=1&type=audio
+​نهاية الفهرس (سورة الناس): https://quran-api-henna-iota.vercel.app/api/surah?id=114&type=audio
+​4. فرع التفسير والترجمة (Tafsir API)
+​يستخدم لجلب التفسير الميسر باللغة العربية لكل آية.
+​بداية الفهرس (سورة الفاتحة): https://quran-api-henna-iota.vercel.app/api/surah?id=1&type=translation&lang=ar
+​نهاية الفهرس (سورة الناس): https://quran-api-henna-iota.vercel.app/api/surah?id=114&type=translation&lang=ar
+​🛠️ منطق البرمجة لجلب الـ 114 سورة (Loop Logic)
+​لجلب كافة السور برمجياً من البداية إلى النهاية، نستخدم حلقة تكرار (Loop) تبدأ من 1 وتنتهي عند 114 كما هو موضح في هذا الكود المختصر:
+// مصفوفة لتخزين كافة روابط السور برمجياً
+const allSurahsLinks = [];
+
+for (let i = 1; i <= 114; i++) {
+    allSurahsLinks.push({
+        id: i,
+        text: `https://quran-api-henna-iota.vercel.app/api/surah?id=${i}`,
+        audio: `https://quran-api-henna-iota.vercel.app/api/surah?id=${i}&type=audio`,
+        tajweed: `https://quran-api-henna-iota.vercel.app/api/surah?id=${i}&type=tajweed`,
+        tafsir: `https://quran-api-henna-iota.vercel.app/api/surah?id=${i}&type=translation&lang=ar`
+    });
+}
+
+// الآن يمكنك الوصول لأي سورة، مثلاً السورة رقم 18 (الكهف)
+console.log("رابط صوت سورة الكهف:", allSurahsLinks[17].audio);
+
+💡 شرح آلية العمل (Workflow)
+​الجلب (Fetching): يتم إرسال طلب GET للرابط المطلوب بناءً على الرقم (ID).
+​المعالجة (Processing): يعيد الـ API كائن JSON يحتوي على مصفوفة verses (الآيات).
+​العرض (Rendering): يتم استخدام map أو forEach في الجافا سكريبت لتحويل هذه البيانات إلى عناصر HTML وعرضها في الموقع فوراً.
