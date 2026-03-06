@@ -11,10 +11,6 @@
       "dest": "/api/surah.js"
     },
     {
-      "src": "/data/(.*)",
-      "dest": "/data/$1"
-    },
-    {
       "handle": "filesystem"
     },
     {
