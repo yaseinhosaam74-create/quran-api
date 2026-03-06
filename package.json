@@ -1,20 +1,8 @@
 {
   "name": "quran-api",
   "version": "1.0.0",
-  "description": "Quran API with Tafsir hosted on Vercel",
-  "main": "api/surah.js",
-  "scripts": {
-    "start": "next start",
-    "dev": "next dev",
-    "build": "next build"
-  },
+  "type": "module",
   "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest"
-  },
-  "engines": {
-    "node": ">=18.x"
-  },
-  "license": "MIT"
+    "path": "^0.12.7"
+  }
 }
