@@ -1,19 +1,25 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/surah.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/surah.js": {
+      "runtime": "@vercel/node"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/api/surah",
       "dest": "/api/surah.js"
     },
     {
-      "src": "/api/surah/(.*)",
-      "dest": "/api/surah.js?id=$1"
+      "src": "/data/(.*)",
+      "dest": "/data/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
