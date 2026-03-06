@@ -1,8 +1,14 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/api/surah", "dest": "/api/surah.js" },
+    { 
+      "src": "/api/surah", 
+      "dest": "/api/surah.js" 
+    },
     { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { 
+      "src": "/(.*)", 
+      "dest": "/index.html" 
+    }
   ]
 }
